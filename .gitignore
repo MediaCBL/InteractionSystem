@@ -1,0 +1,36 @@
+# Unreal plugin gitignore
+
+# Build artifacts
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+
+# Visual Studio / Rider
+.vscode/
+.vs/
+*.VC.db
+*.VC.opendb
+
+# Build configuration files
+*.sln
+*.suo
+*.opensdf
+*.sdf
+
+# Unreal Generated files
+*.xcodeproj
+*.xcworkspace
+project.xcworkspace/
+DerivedDataCache/
+
+# Ignore temporary files
+Thumbs.db
+*.tmp
+*.log
+*.obj
+*.exe
+*.pdb
+
+# Mac files
+.DS_Store
