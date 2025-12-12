@@ -15,20 +15,20 @@ void UInteractableComponent::BeginPlay()
 	Super::BeginPlay();
 }
 
-void UInteractableComponent::OnInteract_Implementation(AActor* InstigatorActor)
+void UInteractableComponent::OnInteract_Implementation(AActor* InstigatorActor, AController* InstigatorController)
 {
 	// Minimal implementation just broadcasts delegate.
-	OnInteraction.Broadcast(this, InstigatorActor);
+	//OnInteraction.Broadcast(this, InstigatorActor, InstigatorController);
 }
 
-void UInteractableComponent::OnFocusBegin_Implementation(AActor* InstigatorActor)
+void UInteractableComponent::OnFocusBegin_Implementation(AActor* InstigatorActor, AController* InstigatorController)
 {
-	OnFocusBeginEvent.Broadcast(this, InstigatorActor);
+	OnFocusBeginEvent.Broadcast(this, InstigatorActor, InstigatorController);
 }
 
-void UInteractableComponent::OnFocusEnd_Implementation(AActor* InstigatorActor)
+void UInteractableComponent::OnFocusEnd_Implementation(AActor* InstigatorActor, AController* InstigatorController)
 {
-	OnFocusEndEvent.Broadcast(this, InstigatorActor);
+	OnFocusEndEvent.Broadcast(this, InstigatorActor, InstigatorController);
 }
 
 FText UInteractableComponent::GetInteractionName_Implementation() const
@@ -41,12 +41,12 @@ FText UInteractableComponent::GetInteractionPrompt_Implementation() const
 	return DefaultPrompt;
 }
 
-void UInteractableComponent::PerformInteraction(AActor* InstigatorActor)
+void UInteractableComponent::PerformInteraction(AActor* InstigatorActor, AController* InstigatorController)
 {
 	if (!bIsEnabled || !GetOwner())
 	{
 		return;
 	}
 
-	OnInteract(InstigatorActor); // Calls the BlueprintNativeEvent implementation.
+	OnInteraction.Broadcast(this, InstigatorActor, InstigatorController);
 }

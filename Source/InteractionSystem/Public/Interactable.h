@@ -23,15 +23,15 @@ class INTERACTIONSYSTEM_API IInteractable
 public:
 	/** Called when an interaction is triggered. */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")
-	void OnInteract(AActor* InstigatorActor);
+	void OnInteract(AActor* InstigatorActor, AController* InstigatorController);
 
 	/** Optional: called when a scanner starts focusing this interactable. */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")
-	void OnFocusBegin(AActor* InstigatorActor);
+	void OnFocusBegin(AActor* InstigatorActor, AController* InstigatorController);
 
 	/** Optional: called when a scanner stops focusing this interactable. */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")
-	void OnFocusEnd(AActor* InstigatorActor);
+	void OnFocusEnd(AActor* InstigatorActor, AController* InstigatorController);
 
 	/** Display name used in prompts – override for dynamic naming. */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")

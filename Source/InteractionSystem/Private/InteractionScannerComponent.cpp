@@ -115,36 +115,36 @@ void UInteractionScannerComponent::HandleNewHit(const FHitResult& Hit)
 	SetCurrentTarget(NewInteractable, GetOwner(), Distance);
 }
 
-void UInteractionScannerComponent::ClearCurrentTarget(AActor* InstigatorActor)
+void UInteractionScannerComponent::ClearCurrentTarget(AActor* InstigatorActor, AController* InstigatorController)
 {
 	if (CurrentInteractable)
 	{
-		IInteractable::Execute_OnFocusEnd(CurrentInteractable, InstigatorActor);
-		OnFocusChanged.Broadcast(CurrentInteractable, InstigatorActor);
+		IInteractable::Execute_OnFocusEnd(CurrentInteractable, InstigatorActor, InstigatorController);
+		OnFocusChanged.Broadcast(CurrentInteractable, InstigatorActor, InstigatorController);
 		CurrentInteractable = nullptr;
 		CurrentResult = FInteractionResult();
 	}
 }
 
-void UInteractionScannerComponent::SetCurrentTarget(UInteractableComponent* NewInteractable, AActor* InstigatorActor, float Distance)
+void UInteractionScannerComponent::SetCurrentTarget(UInteractableComponent* NewInteractable, AActor* InstigatorActor, float Distance, AController* InstigatorController)
 {
 	CurrentInteractable = NewInteractable;
 	CurrentResult.InteractableComponent = NewInteractable;
 	CurrentResult.InteractableActor = NewInteractable->GetOwner();
 	CurrentResult.Distance = Distance;
 
-	IInteractable::Execute_OnFocusBegin(NewInteractable, InstigatorActor);
-	OnFocusChanged.Broadcast(NewInteractable, InstigatorActor);
+	IInteractable::Execute_OnFocusBegin(NewInteractable, InstigatorActor, InstigatorController);
+	OnFocusChanged.Broadcast(NewInteractable, InstigatorActor, InstigatorController);
 }
 
-void UInteractionScannerComponent::TryInteract(AActor* InstigatorActor)
+void UInteractionScannerComponent::TryInteract(AActor* InstigatorActor, AController* InstigatorController)
 {
 	if (!CurrentInteractable || !CurrentInteractable->bIsEnabled)
 	{
 		return;
 	}
 
-	CurrentInteractable->PerformInteraction(InstigatorActor);
+	CurrentInteractable->PerformInteraction(InstigatorActor, InstigatorController);
 }
 
 

@@ -53,14 +53,14 @@ public:
 public:
 	/** Attempt to interact with the current target, if any. */
 	UFUNCTION(BlueprintCallable, Category = "Interaction")
-	virtual void TryInteract(AActor* InstigatorActor);
+	virtual void TryInteract(AActor* InstigatorActor, AController* InstigatorController);
 
 protected:
 	void UpdateScan(float DeltaTime);
 	bool PerformLineTrace(FHitResult& OutHit) const;
 	void HandleNewHit(const FHitResult& Hit);
-	void ClearCurrentTarget(AActor* InstigatorActor);
-	void SetCurrentTarget(UInteractableComponent* NewInteractable, AActor* InstigatorActor, float Distance);
+	void ClearCurrentTarget(AActor* InstigatorActor, AController* InstigatorController = nullptr);
+	void SetCurrentTarget(UInteractableComponent* NewInteractable, AActor* InstigatorActor, float Distance, AController* InstigatorController = nullptr);
 
 	/** Cached currently focused interactable. */
 	UPROPERTY()

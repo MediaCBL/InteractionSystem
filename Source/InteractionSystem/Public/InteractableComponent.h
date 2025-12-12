@@ -8,7 +8,7 @@
 #include "InteractionTypes.h"
 #include "InteractableComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnInteractionEvent, UInteractableComponent*, Interactable, AActor*, InstigatorActor);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnInteractionEvent, UInteractableComponent*, Interactable, AActor*, InstigatorActor, AController*, InstigatorController);
 
 UCLASS(ClassGroup=(Interaction), meta=(BlueprintSpawnableComponent))
 class INTERACTIONSYSTEM_API UInteractableComponent 
@@ -58,15 +58,15 @@ public:
 
 public:
 	// IInteractable implementation
-	virtual void OnInteract_Implementation(AActor* InstigatorActor) override;
-	virtual void OnFocusBegin_Implementation(AActor* InstigatorActor) override;
-	virtual void OnFocusEnd_Implementation(AActor* InstigatorActor) override;
+	void OnInteract_Implementation(AActor* InstigatorActor, AController* InstigatorController);
+	virtual void OnFocusBegin_Implementation(AActor* InstigatorActor, AController* InstigatorController) override;
+	virtual void OnFocusEnd_Implementation(AActor* InstigatorActor, AController* InstigatorController) override;
 	virtual FText GetInteractionName_Implementation() const override;
 	virtual FText GetInteractionPrompt_Implementation() const override;
 
 	/** Called by scanners / gameplay code to trigger interaction. */
 	UFUNCTION(BlueprintCallable, Category = "Interaction")
-	virtual void PerformInteraction(AActor* InstigatorActor);
+	virtual void PerformInteraction(AActor* InstigatorActor, AController* InstigatorController);
 
 	/** Enable/Disable at runtime. */
 	UFUNCTION(BlueprintCallable, Category = "Interaction")
