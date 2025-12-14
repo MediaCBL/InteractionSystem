@@ -6,13 +6,12 @@
 #include "Components/ActorComponent.h"
 #include "Interactable.h"
 #include "InteractionTypes.h"
+#include "Components/InteractableComponentBase.h"
 #include "InteractableComponent.generated.h"
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnInteractionEvent, UInteractableComponent*, Interactable, AActor*, InstigatorActor, AController*, InstigatorController);
 
 UCLASS(ClassGroup=(Interaction), meta=(BlueprintSpawnableComponent))
 class INTERACTIONSYSTEM_API UInteractableComponent 
-	: public UActorComponent
+	: public UInteractableComponentBase
 	, public IInteractable
 {
 	GENERATED_BODY()
@@ -24,9 +23,6 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	/** Is this interactable currently enabled. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
-	bool bIsEnabled = true;
 
 	/** Simple radius used for overlap-based systems (optional). */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
@@ -44,10 +40,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
 	EInteractionType InteractionType = EInteractionType::Instant;
 
-	/** Fired when interaction is performed. */
-	UPROPERTY(BlueprintAssignable, Category = "Interaction|Events")
-	FOnInteractionEvent OnInteraction;
-
 	/** Fired when scanner begins focusing this interactable. */
 	UPROPERTY(BlueprintAssignable, Category = "Interaction|Events")
 	FOnInteractionEvent OnFocusBeginEvent;
@@ -63,10 +55,6 @@ public:
 	virtual void OnFocusEnd_Implementation(AActor* InstigatorActor, AController* InstigatorController) override;
 	virtual FText GetInteractionName_Implementation() const override;
 	virtual FText GetInteractionPrompt_Implementation() const override;
-
-	/** Called by scanners / gameplay code to trigger interaction. */
-	UFUNCTION(BlueprintCallable, Category = "Interaction")
-	virtual void PerformInteraction(AActor* InstigatorActor, AController* InstigatorController);
 
 	/** Enable/Disable at runtime. */
 	UFUNCTION(BlueprintCallable, Category = "Interaction")

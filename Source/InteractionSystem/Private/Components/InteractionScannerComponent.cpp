@@ -1,7 +1,7 @@
 ﻿// © Felix Courteau-Boutin All Right Reserved
 
-#include "InteractionScannerComponent.h"
-#include "InteractableComponent.h"
+#include "Components/InteractionScannerComponent.h"
+#include "Components/InteractableComponent.h"
 #include "Interactable.h"
 #include "InteractionSource.h"
 #include "GameFramework/Actor.h"

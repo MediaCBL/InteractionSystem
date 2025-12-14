@@ -1,6 +1,6 @@
 ﻿// © Felix Courteau-Boutin All Right Reserved
 
-#include "InteractableComponent.h"
+#include "Components/InteractableComponent.h"
 #include "GameFramework/Actor.h"
 
 UInteractableComponent::UInteractableComponent()
@@ -39,14 +39,4 @@ FText UInteractableComponent::GetInteractionName_Implementation() const
 FText UInteractableComponent::GetInteractionPrompt_Implementation() const
 {
 	return DefaultPrompt;
-}
-
-void UInteractableComponent::PerformInteraction(AActor* InstigatorActor, AController* InstigatorController)
-{
-	if (!bIsEnabled || !GetOwner())
-	{
-		return;
-	}
-
-	OnInteraction.Broadcast(this, InstigatorActor, InstigatorController);
 }

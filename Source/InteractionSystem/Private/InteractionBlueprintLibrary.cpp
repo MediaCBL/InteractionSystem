@@ -1,7 +1,7 @@
 ﻿// © Felix Courteau-Boutin All Right Reserved
 
 #include "InteractionBlueprintLibrary.h"
-#include "InteractableComponent.h"
+#include "Components/InteractableComponent.h"
 
 UInteractableComponent* UInteractionBlueprintLibrary::GetFirstInteractableComponent(AActor* Actor)
 {
