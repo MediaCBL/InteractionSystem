@@ -4,6 +4,7 @@
 #include "Components/ShapeComponent.h"
 #include "GameFramework/Pawn.h"
 #include "InteractionReceiverInterface.h"
+#include "Components/WidgetComponent.h"
 
 UPassiveInteractableComponent::UPassiveInteractableComponent()
 {
@@ -17,6 +18,11 @@ void UPassiveInteractableComponent::BeginPlay()
 	if (!TriggerComponent)
 	{
 		TriggerComponent = GetOwner()->FindComponentByClass<UShapeComponent>();
+	}
+
+	if (!PromptWidgetComponent)
+	{
+		PromptWidgetComponent = GetOwner()->FindComponentByClass<UWidgetComponent>();
 	}
 
 	BindOverlapEvents();
@@ -46,6 +52,7 @@ void UPassiveInteractableComponent::HandleBeginOverlap(
 	bool bFromSweep,
 	const FHitResult& SweepResult)
 {
+	ShowPrompt(true);
 	NotifyReceiver(OtherActor, true);
 }
 
@@ -55,6 +62,7 @@ void UPassiveInteractableComponent::HandleEndOverlap(
 	UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex)
 {
+	ShowPrompt(false);
 	NotifyReceiver(OtherActor, false);
 }
 
@@ -90,4 +98,10 @@ void UPassiveInteractableComponent::NotifyReceiver(AActor* OtherActor, bool bIsI
 			bIsInZone
 		);
 	}
+}
+
+void UPassiveInteractableComponent::ShowPrompt(bool bShow)
+{
+	if (!PromptWidgetComponent) return;
+	PromptWidgetComponent->SetVisibility(bShow);
 }

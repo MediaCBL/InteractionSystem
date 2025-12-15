@@ -6,6 +6,7 @@
 #include "InteractableComponentBase.h"
 #include "PassiveInteractableComponent.generated.h"
 
+class UWidgetComponent;
 class UShapeComponent;
 
 UCLASS(ClassGroup=(InteractionSystem), meta=(BlueprintSpawnableComponent))
@@ -44,7 +45,12 @@ protected:
 		int32 OtherBodyIndex
 	);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Passive Interaction")
+	void ShowPrompt(bool bShow);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Interactable")
 	TObjectPtr<UShapeComponent> TriggerComponent;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Interactable")
+	UWidgetComponent* PromptWidgetComponent;
 };
 
