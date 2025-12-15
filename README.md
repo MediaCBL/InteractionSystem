@@ -178,6 +178,61 @@ GetInteractionViewDirection → Camera Component → GetForwardVector
 
 ---
 
+## Passive Interaction
+
+### Overview
+
+`UPassiveInteractableComponent` provides **automatic proximity-based interaction feedback**.
+When a player enters an interactable zone, a **Screen-space prompt widget** is shown and the player (or controller) is notified via an interface.
+
+This system is fully C++ driven, **tick-free**, and intended for reusable interactable actors.
+
+---
+
+### Setup Instructions
+
+1. **Add required components to the Interactable Actor**
+
+   * A `UShapeComponent` (Sphere, Box, Capsule) used as the trigger zone
+   * A `UWidgetComponent` configured as **World Space** (interaction prompt)
+   * A `UPassiveInteractableComponent`
+
+2. **Configure the Widget Component**
+
+   * Assign a prompt widget class (key icon + text)
+   * Set `Widget Space = Screen`
+   * Position it above the actor (e.g. Z offset)
+
+3. **Interaction Receiver**
+
+   * Implement `InteractionReceiverInterface` on the **Pawn or PlayerController**
+   * Handle `OnPassiveInteractableZoneChanged` to react to enter/exit events
+
+---
+
+### Runtime Behavior
+
+* On overlap begin:
+
+  * Prompt widget becomes visible
+  * Player (or controller) is notified via `InteractionReceiverInterface`
+* On overlap end:
+
+  * Prompt widget is hidden
+  * Exit notification is sent
+
+Only **player-controlled pawns** trigger the system.
+
+---
+
+### Notes
+
+* No ticking or polling is used
+* Trigger and widget components are auto-discovered on `BeginPlay`
+* Prompt display logic is fully actor-owned and multiplayer-safe
+
+---
+
 ## Extending the Plugin
 
 You can safely extend the system by:
