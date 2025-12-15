@@ -52,5 +52,9 @@ protected:
 	
 	UPROPERTY(VisibleAnywhere, Category = "Interactable")
 	UWidgetComponent* PromptWidgetComponent;
+
+private:
+
+	void SetTriggerComponentReference();
 };
 

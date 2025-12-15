@@ -5,6 +5,7 @@
 #include "GameFramework/Pawn.h"
 #include "InteractionReceiverInterface.h"
 #include "Components/WidgetComponent.h"
+#include "Components/Colliders/InteractionColliderInterface.h"
 
 UPassiveInteractableComponent::UPassiveInteractableComponent()
 {
@@ -17,7 +18,7 @@ void UPassiveInteractableComponent::BeginPlay()
 	
 	if (!TriggerComponent)
 	{
-		TriggerComponent = GetOwner()->FindComponentByClass<UShapeComponent>();
+		SetTriggerComponentReference();
 	}
 
 	if (!PromptWidgetComponent)
@@ -104,4 +105,28 @@ void UPassiveInteractableComponent::ShowPrompt(bool bShow)
 {
 	if (!PromptWidgetComponent) return;
 	PromptWidgetComponent->SetVisibility(bShow);
+}
+
+void UPassiveInteractableComponent::SetTriggerComponentReference()
+{
+	UShapeComponent* FoundCollider = nullptr;
+
+	TArray<UActorComponent*> Components;
+	GetOwner()->GetComponents(Components);
+
+	for (UActorComponent* Comp : Components)
+	{
+		if (!Comp)
+		{
+			continue;
+		}
+
+		if (Comp->GetClass()->ImplementsInterface(UInteractionColliderInterface::StaticClass()))
+		{
+			FoundCollider = Cast<UShapeComponent>(Comp);
+			break;
+		}
+	}
+
+	TriggerComponent = FoundCollider;
 }
