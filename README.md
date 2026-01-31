@@ -2,13 +2,56 @@
 
 # Advanced Interaction System
 
-Reusable interaction plugin for Unreal Engine.
-Provides a modular, extensible C++ framework for interaction detection, focus events, instant and hold interactions, and optional advanced features.
+Spare-time, work-in-progress Unreal Engine project exploring a modular interaction system. Intended as a reference and proof of concept rather than a production-ready solution.
+
+---
+
+## Project Status
+
+This project is currently in active experimentation and prototyping.  
+Development is done during spare time and focuses on exploring technical concepts rather than delivering a finalized system.
+
+Features, architecture, and APIs may change frequently.
+
+---
+
+## Scope and Goals
+
+The main objectives of this repository are:
+
+- Prototype a flexible interaction framework  
+- Explore player-to-object and system interactions  
+- Test trigger, proximity, and context-based logic  
+- Validate design ideas for future projects or plugins  
+
+This project is not intended to replace full-featured interaction frameworks.
+
+---
+
+## Disclaimer
+
+This repository is provided as-is.
+
+- Code quality may vary  
+- Some systems may be incomplete  
+- Limited documentation in early stages  
+- Not production-ready  
+
+Use this project mainly as a learning resource, reference, or starting point for your own implementations.
+
+---
+
+## Contributions
+
+Contributions, feedback, and ideas are welcome.  
+However, this project prioritizes experimentation over long-term maintenance.
 
 ---
 
 ## Overview
 
+Reusable interaction plugin for Unreal Engine.
+Provides a modular, extensible C++ framework for interaction detection, focus events, instant and hold interactions, and optional advanced features.
 This plugin provides two levels of interaction components:
 
 ### Minimal System
