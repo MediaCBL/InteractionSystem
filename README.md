@@ -1,6 +1,6 @@
 ---
 
-# Advanced Interaction System
+# Simple Interaction System
 
 Spare-time, work-in-progress Unreal Engine project exploring a modular interaction system. Intended as a reference and proof of concept rather than a production-ready solution.
 
